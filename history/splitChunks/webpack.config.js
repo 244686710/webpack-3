@@ -6,13 +6,14 @@ const webpack = require('webpack');
 let Happypack = require('happypack')
 module.exports = {
     optimization: {
+
     },
     mode: 'production',
     entry: {
         index: './src/index.js',
+        other: './src/other.js'
     },
     devServer: {
-        hot: true, // 启用热更新
         port: '3000',
         contentBase: './dist'
     },
@@ -47,8 +48,6 @@ module.exports = {
         new webpack.IgnorePlugin(/\.\/locale/, /moment/), //打包忽略
         new HtmlWebPackPlugin({
             template: './public/index.html'
-        }),
-        new webpack.NamedModulesPlugin(), // 打印热更新模块路径
-        new webpack.HotModuleReplacementPlugin() // 热跟新插件
+        })
     ]
 }

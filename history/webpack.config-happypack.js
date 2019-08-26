@@ -5,14 +5,9 @@ const webpack = require('webpack');
 // 模块 happypack 可以实现多线程来打包
 let Happypack = require('happypack')
 module.exports = {
-    optimization: {
-    },
-    mode: 'production',
-    entry: {
-        index: './src/index.js',
-    },
+    mode: 'development',
+    entry: './src/index.js',
     devServer: {
-        hot: true, // 启用热更新
         port: '3000',
         contentBase: './dist'
     },
@@ -31,24 +26,34 @@ module.exports = {
                     ]
                 }
             }
+            // use: 'Happypack/loader?id=js',
 
-        }, {
-            test: /\.css$/,
-            exclude: /node_modules/,
-            use: ['style-loader', 'css-loader']
         }]
     },
     output: {
-        filename: '[name].[hash:8].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
 
     plugins: [
+        // new Happypack({
+        //     id: 'js',
+        //     use: [{
+        //         loader: 'babel-loader',
+        //         options: {
+        //             presets: [
+        //                 '@babel/preset-env',
+        //                 '@babel/preset-react'
+        //             ]
+        //         }
+        //     }]
+        // }),
+        new webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, 'dist', 'manifest.json')
+        }),
         new webpack.IgnorePlugin(/\.\/locale/, /moment/), //打包忽略
         new HtmlWebPackPlugin({
             template: './public/index.html'
-        }),
-        new webpack.NamedModulesPlugin(), // 打印热更新模块路径
-        new webpack.HotModuleReplacementPlugin() // 热跟新插件
+        })
     ]
 }

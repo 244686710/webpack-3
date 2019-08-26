@@ -1,14 +1,14 @@
-import React from 'react';
-import { render } from 'react-dom'
+// webpack lazyload
+// let button = document.createElement('button');
+// button.innerHTML = 'Hello'
+// button.addEventListener('click', () => {
+//     // webpack jsonp
+//     import('./source.js').then( data => {
+//         console.log(data.default)
+//     })
+// })
 
-render(<h1>hello world</h1>, document.getElementById('root'))
+// document.body.appendChild(button);
 
-// import jquery from 'jquery';
-// import moment from 'moment';
-
-// // 手动引入所需要的语言包
-// import 'moment/locale/zh-cn';
-// let r = moment().endOf('day').fromNow();          // 8 小时内
-// moment.locale('zh-cn');
-
-// console.log(r)
+import src from './source';
+console.log(src)
